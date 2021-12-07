@@ -37,6 +37,7 @@ struct AoCSolver {
         return try! String(contentsOfFile: path!).split(whereSeparator: \.isNewline)
     }
     
+    //MARK: - Day 1
     func solveDay1() -> [String] {
         let rows = day1Data.compactMap{Int($0)}
         var last = rows.first!
@@ -96,4 +97,36 @@ struct AoCSolver {
         return ["\(result1)", "\(result2)"]
     }
     
+    //MARK: - Day 3
+    func solveDay3() -> [String] {
+        let diagnostics = day3Data.compactMap{String($0)}
+        guard let bitLenght = diagnostics.max(by: {$0.count > $1.count })?.count else { return [] }
+        
+        var commonBits: [Bool] = []
+        for i in 0..<bitLenght {
+            var zeroes = 0
+            var ones = 1
+            for row in diagnostics {
+                let result = row[i]
+                if result == "0" {
+                    zeroes += 1
+                }else {
+                    ones += 1
+                }
+            }
+            
+            commonBits.append(zeroes < ones)
+        }
+        let gammaString = commonBits.asBit()
+        guard let gammaRate = Int(gammaString, radix: 2) else { return [] }
+        
+        let uncommonBits = commonBits.toggledBits()
+        let epsilonRateString = uncommonBits.asBit()
+        guard let epsilonRate = Int(epsilonRateString, radix: 2) else { return [] }
+        
+        var powerConsumption = gammaRate * epsilonRate
+        let result2 = ""
+        
+        return ["\(powerConsumption)", "\(result2)"]
+    }
 }
