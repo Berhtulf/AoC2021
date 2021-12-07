@@ -102,10 +102,11 @@ struct AoCSolver {
         let diagnostics = day3Data.compactMap{String($0)}
         guard let bitLenght = diagnostics.max(by: {$0.count > $1.count })?.count else { return [] }
         
+        //MARK:  Star 1
         var commonBits: [Bool] = []
         for i in 0..<bitLenght {
             var zeroes = 0
-            var ones = 1
+            var ones = 0
             for row in diagnostics {
                 let result = row[i]
                 if result == "0" {
@@ -124,9 +125,26 @@ struct AoCSolver {
         let epsilonRateString = uncommonBits.asBit()
         guard let epsilonRate = Int(epsilonRateString, radix: 2) else { return [] }
         
-        var powerConsumption = gammaRate * epsilonRate
-        let result2 = ""
+        let powerConsumption = gammaRate * epsilonRate
         
-        return ["\(powerConsumption)", "\(result2)"]
+        //MARK: Star 2
+        var criteria: Bool
+        var diagCopy = diagnostics
+        for i in 0..<bitLenght {
+            criteria = diagCopy.getMostCommomBitAt(index: i)
+            diagCopy = diagCopy.filter{ $0[i] == (criteria ? "1" : "0")}
+            if diagCopy.count == 1 { break }
+        }
+        guard let oxygen = Int(diagCopy.first ?? "", radix: 2) else { return [] }
+        
+        diagCopy = diagnostics
+        for i in 0..<bitLenght {
+            criteria = diagCopy.getMostUncommomBitAt(index: i)
+            diagCopy = diagCopy.filter{ $0[i] == (criteria ? "0" : "1")}
+            if diagCopy.count == 1 { break }
+        }
+        guard let co2 = Int(diagCopy.first ?? "", radix: 2) else { return [] }
+        
+        return ["\(powerConsumption)", "\(oxygen * co2)"]
     }
 }

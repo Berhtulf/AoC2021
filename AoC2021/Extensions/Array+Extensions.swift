@@ -24,3 +24,25 @@ extension Array where Element == Bool {
         return retval
     }
 }
+
+extension Array where Element == String {
+    func getMostCommomBitAt(index: Int) -> Bool {
+        var zeroes = 0
+        var ones = 0
+        
+        for row in self {
+            let result = row[index]
+            if result == "0" {
+                zeroes += 1
+            }else {
+                ones += 1
+            }
+        }
+        
+        return ones >= zeroes
+    }
+    
+    func getMostUncommomBitAt(index: Int) -> Bool {
+        return !getMostCommomBitAt(index: index)
+    }
+}
