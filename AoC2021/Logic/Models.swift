@@ -40,7 +40,7 @@ class Bingo{
     func call(_ number: Int) -> (BingoBoard?, Int) {
         var winner: BingoBoard?
         var sum = 0
-        boards.forEach { board in
+        boards.filter{ $0.won == false }.forEach { board in
             board.findAndMark(number)
             let boardResult = board.isWinner()
             if boardResult.0 {
@@ -48,16 +48,18 @@ class Bingo{
                 sum = boardResult.1
             }
         }
-        print(winner != nil ? "Winner!" : "No winner")
         return (winner, sum)
     }
 }
 
 class BingoBoard {
+    let id: Int
     var numberRows: [[BingoNumber]]
+    var won: Bool = false
     
     init(input: [[Int]]) {
         numberRows = []
+        id = input[0][0]
         input.forEach { sourceRow in
             var row: [BingoNumber] = []
             sourceRow.forEach { number in
@@ -79,19 +81,21 @@ class BingoBoard {
     }
     func isWinner() -> (Bool, Int) {
         let rowResult = checkRows()
-        let columnResult = checkColumns()
         if rowResult.0 {
+            won = true
             return rowResult
         }
+        let columnResult = checkColumns()
         if columnResult.0 {
-            return rowResult
+            won = true
+            return columnResult
         }
         return (false, 0)
     }
     
     func checkRows() -> (Bool, Int) {
         for row in numberRows {
-            if row.allSatisfy({ $0.marked }) {
+            if row.allSatisfy(\.marked) {
                 return (true, sumUnmarked())
             }
         }
@@ -99,11 +103,13 @@ class BingoBoard {
     }
     func checkColumns() -> (Bool, Int) {
         for i in 0..<5 {
-            for j in 0..<5 {
-                if numberRows[i][j].marked == false {
-                    continue
+            column: for j in 0..<5 {
+                if numberRows[j][i].marked == false {
+                    break column
                 }
-                return (true, sumUnmarked())
+                if j == 4 {
+                    return (true, sumUnmarked())
+                }
             }
         }
         return (false, 0)

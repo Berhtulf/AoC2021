@@ -149,12 +149,8 @@ struct AoCSolver {
     }
     
     //MARK: - Day4
-    func solveDay4() -> [String] {
+    fileprivate func createNewBoard(_ boardSourceLines: Array<String>.SubSequence) -> Bingo {
         var boards = [BingoBoard]()
-        let sourceLines = day4Data.compactMap{String($0)}
-        guard let selectedNumbers = sourceLines.first else { return [] }
-        let boardSourceLines = sourceLines.dropFirst(2)
-        
         var boardSource: [[Int]] = []
         for row in boardSourceLines {
             if row.isEmpty && boardSource.isEmpty == false {
@@ -169,7 +165,15 @@ struct AoCSolver {
             }
             boardSource.append(boardRow)
         }
-        let bingo = Bingo(with: boards)
+        return Bingo(with: boards)
+    }
+    
+    func solveDay4() -> [String] {
+        let sourceLines = day4Data.compactMap{String($0)}
+        guard let selectedNumbers = sourceLines.first else { return [] }
+        let boardSourceLines = sourceLines.dropFirst(2)
+        
+        let bingo = createNewBoard(boardSourceLines)
         //MARK: Star 1
         var result1 = ""
         var winner: BingoBoard?
@@ -185,6 +189,21 @@ struct AoCSolver {
             }
         }
         
-        return ["\(result1)", ""]
+        //MARK: Star 2
+        let bingo2 = createNewBoard(boardSourceLines)
+        var result2 = ""
+        winner = nil
+        sum = 0
+        for call in selectedNumbers.components(separatedBy: ","){
+            guard let calledNumber = Int(call) else {
+                break
+            }
+            (winner, sum) = bingo2.call(calledNumber)
+            if winner != nil {
+                result2 = "\(sum * calledNumber)"
+            }
+        }
+        
+        return ["\(result1)", "\(result2)"]
     }
 }
