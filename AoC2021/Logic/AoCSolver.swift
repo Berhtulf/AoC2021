@@ -140,7 +140,7 @@ struct AoCSolver {
         diagCopy = diagnostics
         for i in 0..<bitLenght {
             criteria = diagCopy.getMostUncommomBitAt(index: i)
-            diagCopy = diagCopy.filter{ $0[i] == (criteria ? "0" : "1")}
+            diagCopy = diagCopy.filter{ $0[i] == (criteria ? "1" : "0")}
             if diagCopy.count == 1 { break }
         }
         guard let co2 = Int(diagCopy.first ?? "", radix: 2) else { return [] }
