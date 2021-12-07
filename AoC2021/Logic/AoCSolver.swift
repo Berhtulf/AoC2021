@@ -79,8 +79,20 @@ struct AoCSolver {
         }
         let result1 = position[0] * position[1]
         //MARK: Star 2
-        let result2 = ""
+        position = [0,0]
+        var aim = 0
         
+        for commandText in commands {
+            guard let command = try? Day2Command.parse(from: commandText) else { continue }
+            if command.direction == .forward {
+                position[0] += command.distance
+                position[1] += aim * command.distance
+            }else{
+                aim += command.direction == .up ? -command.distance : command.distance
+            }
+        }
+        let result2 = position[0] * position[1]
+    
         return ["\(result1)", "\(result2)"]
     }
     
