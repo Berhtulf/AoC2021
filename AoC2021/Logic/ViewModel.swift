@@ -9,7 +9,7 @@ import SwiftUI
 
 class ViewModel: ObservableObject {
     var solver = AoCSolver()
-    var implementedDays = [1,2,3]
+    var implementedDays = [1,2,3,4]
     @Published var result = [String]()
     
     //MARK: - Intent(s)
@@ -23,6 +23,8 @@ class ViewModel: ObservableObject {
             result = solver.solveDay2()
         case 3:
             result = solver.solveDay3()
+        case 4:
+            result = solver.solveDay4()
         default:
             break
         }

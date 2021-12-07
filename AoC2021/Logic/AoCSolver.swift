@@ -22,7 +22,7 @@ struct AoCSolver {
     }
     var day4Data:[String.SubSequence] {
         let path = Bundle.main.path(forResource: "Day4", ofType: "txt")
-        return try! String(contentsOfFile: path!).split(omittingEmptySubsequences: false ,whereSeparator: \.isNewline)
+        return try! String(contentsOfFile: path!).split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)
     }
     var day5Data:[String.SubSequence] {
         let path = Bundle.main.path(forResource: "Day5", ofType: "txt")
@@ -30,7 +30,7 @@ struct AoCSolver {
     }
     var day6Data:[String.SubSequence] {
         let path = Bundle.main.path(forResource: "Day6", ofType: "txt")
-        return try! String(contentsOfFile: path!).split(omittingEmptySubsequences: false ,whereSeparator: \.isNewline)
+        return try! String(contentsOfFile: path!).split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)
     }
     var day7Data:[String.SubSequence] {
         let path = Bundle.main.path(forResource: "Day7", ofType: "txt")
@@ -146,5 +146,45 @@ struct AoCSolver {
         guard let co2 = Int(diagCopy.first ?? "", radix: 2) else { return [] }
         
         return ["\(powerConsumption)", "\(oxygen * co2)"]
+    }
+    
+    //MARK: - Day4
+    func solveDay4() -> [String] {
+        var boards = [BingoBoard]()
+        let sourceLines = day4Data.compactMap{String($0)}
+        guard let selectedNumbers = sourceLines.first else { return [] }
+        let boardSourceLines = sourceLines.dropFirst(2)
+        
+        var boardSource: [[Int]] = []
+        for row in boardSourceLines {
+            if row.isEmpty && boardSource.isEmpty == false {
+                boards.append(BingoBoard(input: boardSource))
+                boardSource = []
+                continue
+            }
+            var boardRow = [Int]()
+            for numberText in row.components(separatedBy: .whitespaces) {
+                guard let number = Int(numberText) else { continue }
+                boardRow.append(number)
+            }
+            boardSource.append(boardRow)
+        }
+        let bingo = Bingo(with: boards)
+        //MARK: Star 1
+        var result1 = ""
+        var winner: BingoBoard?
+        var sum = 0
+        for call in selectedNumbers.components(separatedBy: ","){
+            guard let calledNumber = Int(call) else {
+                break
+            }
+            (winner, sum) = bingo.call(calledNumber)
+            if winner != nil {
+                result1 = "\(sum * calledNumber)"
+                break
+            }
+        }
+        
+        return ["\(result1)", ""]
     }
 }

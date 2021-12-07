@@ -20,6 +20,7 @@
 		6366AD28275FBA960092DF71 /* Day3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6366AD27275FBA960092DF71 /* Day3.txt */; };
 		6366AD2B275FBD1B0092DF71 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6366AD2A275FBD1B0092DF71 /* String+Extensions.swift */; };
 		6366AD2D275FBFA60092DF71 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6366AD2C275FBFA60092DF71 /* Array+Extensions.swift */; };
+		6366AD2F275FC6FD0092DF71 /* Day4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6366AD2E275FC6FD0092DF71 /* Day4.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		6366AD27275FBA960092DF71 /* Day3.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Day3.txt; sourceTree = "<group>"; };
 		6366AD2A275FBD1B0092DF71 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		6366AD2C275FBFA60092DF71 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		6366AD2E275FC6FD0092DF71 /* Day4.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Day4.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				6366AD21275A09410092DF71 /* Day1.txt */,
 				6366AD23275FB4680092DF71 /* Day2.txt */,
 				6366AD27275FBA960092DF71 /* Day3.txt */,
+				6366AD2E275FC6FD0092DF71 /* Day4.txt */,
 			);
 			path = SourceFiles;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 			files = (
 				6366AD28275FBA960092DF71 /* Day3.txt in Resources */,
 				6366AD12275A064D0092DF71 /* Preview Assets.xcassets in Resources */,
+				6366AD2F275FC6FD0092DF71 /* Day4.txt in Resources */,
 				6366AD0F275A064D0092DF71 /* Assets.xcassets in Resources */,
 				6366AD24275FB4680092DF71 /* Day2.txt in Resources */,
 				6366AD22275A09410092DF71 /* Day1.txt in Resources */,
