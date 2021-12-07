@@ -8,9 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var viewModel = ViewModel()
+    
+    @State var showResult = false
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView{
+            ScrollView{
+                ForEach(1...24, id: \.self, content: { i in
+                    NavigationLink("Day \(i)") {
+                        ResultsView(viewModel: viewModel, day: i)
+                    }.disabled(!viewModel.implementedDays.contains(i))
+                })
+            }
+        }
     }
 }
 
